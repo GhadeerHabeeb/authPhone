@@ -64,7 +64,7 @@ class _MyVerifyState extends State<MyVerify> {
                 width: 350,
                 height: 350,
                 child: Image.asset(
-                  'images/animationLoading2.gif',
+                  'assets/images/animationLoading2.gif',
                    fit: BoxFit.contain,
                 ),
               ),
@@ -111,23 +111,33 @@ class _MyVerifyState extends State<MyVerify> {
                         primary: Colors.amber.shade600,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: ()      async{
+                    onPressed: ()       {
+                      if(code!='')
+                      {
+                        _VerifyButton(code);
+                      }
+                      else
+                        {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  Navigator.of(context).pop(true);
+                                });
+                                return AlertDialog(
+                                  title: Center(
+                                    child:ListTile(
+                                      title: Text('ادخل الرمز المرسل',
+                                        style: TextStyle(fontSize: 22),),
+                                       trailing: Icon(Icons.error_outline,color: Colors.amber,size: 25,),
+                                    )
+                                   /* Text('ادخل الرمز المرسل',
+                                      style: TextStyle(backgroundColor: Colors.white60),),*/
+                                  ),
+                                );
+                              });
 
-                  try{
-                    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhone.verify, smsCode: code);
-
-                    // Sign the user in (or link) with the credential
-                    await auth.signInWithCredential(credential);
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      'welcome',
-                          (route) => false,
-                    );
-                  }
-                  catch(ex){
-                    print(ex);
-                  }
-
+                        }
                     },
                     child: Text("تحقق",style:TextStyle(fontSize: 22),)),
               ),
@@ -152,5 +162,22 @@ class _MyVerifyState extends State<MyVerify> {
         ),
       ),
     );
+  }
+  _VerifyButton(var code)
+  async {
+    try{
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhone.verify, smsCode: code);
+
+      // Sign the user in (or link) with the credential
+      await auth.signInWithCredential(credential);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        'home',
+            (route) => false,
+      );
+    }
+    catch(ex){
+      print(ex);
+    }
   }
 }

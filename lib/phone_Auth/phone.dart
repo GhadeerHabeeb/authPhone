@@ -1,4 +1,6 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyPhone extends StatefulWidget {
@@ -23,36 +25,36 @@ class _MyPhoneState extends State<MyPhone> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
+        margin: const EdgeInsets.only(left: 25, right: 25),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'images/logo.png',
+                'assets/images/logo.png',
                 width: 250,
                 height: 250,
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
-              Text(
+              const Text(
                 "أدخل رقم هاتفك",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 " SMS لكي نرسل لك الكود في رسالة  ",
                 style: TextStyle(
                   fontSize: 22,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
@@ -63,7 +65,7 @@ class _MyPhoneState extends State<MyPhone> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                    /* SizedBox(
@@ -80,7 +82,7 @@ class _MyPhoneState extends State<MyPhone> {
                       "|",
                       style: TextStyle(fontSize: 33, color: Colors.grey),
                     ),*/
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -91,7 +93,7 @@ class _MyPhoneState extends State<MyPhone> {
                             });
                           },
                           keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "هاتف",
                             hintStyle: TextStyle(fontSize: 25)
@@ -100,7 +102,7 @@ class _MyPhoneState extends State<MyPhone> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               SizedBox(
@@ -109,18 +111,27 @@ class _MyPhoneState extends State<MyPhone> {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.amber,
-                        textStyle: TextStyle(fontSize: 30),
+                        textStyle: const TextStyle(fontSize: 30),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: ()    {
                       print('phone:'+phone);
-setState(() {
-  _phoneAuth();
-});
+
+  if(phone=='')
+    {
+      _showAlertDialog(context);
+      print('please enter phone num');
+    }
+  else
+  {
+    _phoneAuth();
+  }
+
 
                     },
-                    child: Text("ارسال")),
-              )
+                    child: const Text("ارسال")),
+              ),
+
             ],
           ),
         ),
@@ -145,5 +156,33 @@ setState(() {
     catch(ex){
       print(ex);
     }
+  }
+  void _showAlertDialog(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text('تحذير',style: TextStyle(fontSize: 30),),
+        content: const Text('ادخل رقم الهاتف',style: TextStyle(fontSize: 20),),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            /// This parameter indicates this action is the default,
+            /// and turns the action's text to bold text.
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Colors.amberAccent,
+                  borderRadius:BorderRadius.circular(20),
+                ),
+                child: Center(child: const Text('Ok',style: TextStyle(fontSize: 30),))),
+          ),
+
+        ],
+      ),
+    );
   }
 }
