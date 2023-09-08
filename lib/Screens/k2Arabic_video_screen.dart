@@ -1,5 +1,6 @@
 import 'package:auth_app/video.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 import '../lessons_info_from_excal.dart';
 
@@ -39,34 +40,46 @@ class _K2VideoReadingState extends State<K2VideoReading> {
 
                     height: 300,
                     width: 400,
-                    child:  Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                    child:  Stack(
+                      children: [
+                        ClipPath(
+                          clipper: WaveClipperTwo(flip: true),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.purpleAccent.withOpacity(0.5),
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
 
-                          Text(feedbacks[index].k2ArabicTitle ,style: TextStyle(fontSize: 30),textAlign: TextAlign.center,),
-                          SizedBox(
-                            height: 10,
+                            ),
+                            height: 180,
+                            child:
+                            Center(child: Text( feedbacks[index].k2ArabicTitle,style: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),),
+
                           ),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amberAccent,
-                                side: BorderSide(
-                                    width: 0.2,
-                                    color: Colors.grey
-                                ),
-                                minimumSize: Size(100, 50),
-
-                              ),
-                              onPressed: (){
+                        ),
 
 
-                                Navigator.push(context,  MaterialPageRoute(builder: (context) =>   Video(id: feedbacks[index].k2ArabicYoutubeUrl,index: index,)));
-                              }, child: Text('watch video',style: TextStyle(fontSize: 25))),
+                           Positioned(
+                             top: 150,
+                             right: 110,
+                             child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xFF1ABFCF),
+                                      side: BorderSide(
+                                          width: 0.2,
+                                          color: Colors.grey
+                                      ),
+                                      minimumSize: Size(100, 50),
+
+                                    ),
+                                    onPressed: (){
 
 
-                        ],
-                      ),
+                                      Navigator.push(context,  MaterialPageRoute(builder: (context) =>   Video(id: feedbacks[index].k2ArabicYoutubeUrl,index: index,)));
+                                    }, child: Text('watch video',style: TextStyle(fontSize: 25))),
+                           ),
+
+
+                      ],
                     ),
                   ),
                 ),
@@ -104,7 +117,7 @@ class _K2VideoReadingState extends State<K2VideoReading> {
                   SizedBox(
                     height: 50,
                     width: 50,
-                    child: Icon(Icons.menu,size: 30,color: Colors.grey,),
+                    child: Icon(Icons.notifications,size: 30,color: Colors.grey,),
                   )
                 ],
               ),

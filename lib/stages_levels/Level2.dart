@@ -2,6 +2,7 @@ import 'package:auth_app/Screens/k2_arabic_lesson_screen.dart';
 import 'package:auth_app/StageData.dart';
 import 'package:auth_app/lessons_info_from_excal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class Level2 extends StatefulWidget {
@@ -67,13 +68,14 @@ class _Level2State extends State<Level2> {
                 ),
               ],
             ),
+
             SizedBox(
               height: 30,
             ),
             Container(
               height: 50,
               width: MediaQuery.of(context).size.width,
-              color: Colors.white70,
+              color: args.color.withOpacity(0.5),
               child: Center(child: Text('المرحلة الثانية',style: TextStyle(fontSize: 30),)),
             ),
             SizedBox(

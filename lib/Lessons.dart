@@ -1,6 +1,7 @@
 
 import 'package:auth_app/StageData.dart';
 import 'package:auth_app/lessons_info_from_excal.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 import '';
 
@@ -67,6 +68,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                       child: Stack(
                           clipBehavior:Clip.antiAlias,
                           children: [
+
                             Center(
                                 child:  Text(args.level,style: TextStyle(color: Colors.white,fontSize: 20),)
                             ),]
@@ -139,11 +141,13 @@ class SubjectsCard extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0,right: 10.0,left: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+
                         CircularStepProgressIndicator(
                           totalSteps: 100,
                           currentStep: 74,

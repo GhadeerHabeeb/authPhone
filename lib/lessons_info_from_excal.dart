@@ -2,6 +2,7 @@ import 'package:auth_app/Feedback_Model.dart';
 import 'package:auth_app/Lecture_result.dart';
 import 'package:auth_app/video.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'dart:convert'as convert;
 import 'package:http/http.dart'as http;
 
@@ -195,6 +196,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
        ),
       body: Stack(
         children: [
+
           thereIsData==true? ListView.builder(
 
             itemCount: feedbacks.length,
@@ -323,7 +325,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                   SizedBox(
                     height: 50,
                     width: 50,
-                    child: Icon(Icons.menu,size: 30,color: Colors.black,),
+                    child: Icon(Icons.notifications,size: 30,color: Colors.grey,),
                   )
                 ],
               ),
@@ -349,75 +351,98 @@ class FeedbacksTile extends StatelessWidget {
     WhatLesson(lessonTitle, index, level);
     return video==''?Container(
       color:Colors.amberAccent,
-    ):Padding(
-      padding:  EdgeInsets.all(8.0),
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.3),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-            boxShadow: [BoxShadow(
-                blurRadius: 0.9,
-                spreadRadius: 0.9,
-                color: Colors.white60,
-                offset: Offset(3, 4)
-            )],
-          ),
-
-          height:numLines<5? 300:500,
-          width: 400,
-          child:  Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                Text(Title ,style: TextStyle(fontSize: 26),textAlign: TextAlign.center,),
-                SizedBox(
-                  height: 10,
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amberAccent,
-                      side: BorderSide(
-                          width: 0.2,
-                          color: Colors.grey
-                      ),
-                      minimumSize: Size(100, 50),
-
-                    ),
-                    onPressed: (){
-
-                        WhatLesson(lessonTitle,index,level);
-
-                        print(level);
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) =>   Video(id: video,index: index,)));
-
-                    }, child: Text('watch video',style: TextStyle(fontSize: 25))),
-                SizedBox(
-                  height: 10,
-                ),
-
-                result==''?Container():ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffFFE4A0FF),
-                      side: BorderSide(
-                          width: 0.2,
-                          color: Colors.grey
-                      ),
-                      minimumSize: Size(100, 50),
-
-                    ),
-                    onPressed: (){
-                        print(numLines);
-                        WhatLesson(lessonTitle,index,level);
-
-                        Navigator.push(context,  MaterialPageRoute(builder: (context) => LectureResult(lectureResult: result,)));
-
-                    }, child: Text('watch result',style: TextStyle(fontSize: 25)))
-
-              ],
+    ):
+        Padding(
+        padding:  EdgeInsets.all(8.0),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.3),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+              boxShadow: [BoxShadow(
+                  blurRadius: 0.9,
+                  spreadRadius: 0.9,
+                  color: Colors.white60,
+                  offset: Offset(3, 4)
+              )],
             ),
+
+
+            width: 400,
+            height: 300,
+            child:
+
+
+                Stack(
+                  children: [
+                    ClipPath(
+                      clipper: WaveClipperTwo(flip: true),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(0.5),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+
+                        ),
+                        height: 180,
+                        child:
+                        Center(child: Text(Title ,style: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),),
+
+                      ),
+                    ),
+
+                    Positioned(
+                      right: 105,
+                      top: 150,
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+
+
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:Color(0xFF1ABFCF),
+                              side: BorderSide(
+                                  width: 0.2,
+                                  color: Colors.grey
+                              ),
+                              minimumSize: Size(100, 50),
+
+                            ),
+                            onPressed: (){
+
+                                WhatLesson(lessonTitle,index,level);
+
+                                print(level);
+                                Navigator.push(context,  MaterialPageRoute(builder: (context) =>   Video(id: video,index: index,)));
+
+                            }, child: Text('watch video',style: TextStyle(fontSize: 25))),
+                        SizedBox(
+                          height: 10,
+                        ),
+
+                        result==''?Container():ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff7FC557),
+                              side: BorderSide(
+                                  width: 0.2,
+                                  color: Colors.grey
+                              ),
+                              minimumSize: Size(100, 50),
+
+                            ),
+                            onPressed: (){
+                                print(numLines);
+                                WhatLesson(lessonTitle,index,level);
+
+                                Navigator.push(context,  MaterialPageRoute(builder: (context) => LectureResult(lectureResult: result,)));
+
+                            }, child: Text('watch result',style: TextStyle(fontSize: 25)))
+
+                      ],
+
           ),
+                    ),]
+                ),
         ),
       ),
     );

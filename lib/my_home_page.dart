@@ -220,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(
                       height: 50,
                       width: 50,
-                      child: Icon(Icons.menu,size: 30,color: Colors.grey,),
+                      child: Icon(Icons.notifications,size: 30,color: Colors.grey,),
                     )
                   ],
                 ),

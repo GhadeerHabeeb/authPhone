@@ -74,7 +74,7 @@ class _Level1State extends State<Level1> {
             Container(
               height: 50,
               width: MediaQuery.of(context).size.width,
-              color: Colors.white70,
+              color: args.color.withOpacity(0.5),
               child: Center(child: Text('المرحلة الاولى',style: TextStyle(fontSize: 30),)),
             ),
 

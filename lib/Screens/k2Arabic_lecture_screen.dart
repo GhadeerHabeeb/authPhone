@@ -2,6 +2,7 @@ import 'package:auth_app/Feedback_Model.dart';
 import 'package:auth_app/Lecture_result.dart';
 import 'package:auth_app/lessons_info_from_excal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 import 'dart:convert'as convert;
 import 'package:http/http.dart'as http;
@@ -113,30 +114,42 @@ class _K2LectureReadingState extends State<K2LectureReading> {
                       )],
                     ),
 
-                    height: 200,
-                    width: 400,
-                    child:  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      height: 300,
+                      width: 400,
+                    child:  Stack(
                       children: [
-                        Text('${feedbacks[index].k2ArabicLectureTitle}',style: TextStyle(fontSize: 30),),
-                        SizedBox(
-                          height: 20,
+                        ClipPath(
+                          clipper: WaveClipperTwo(flip: true),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.purpleAccent.withOpacity(0.5),
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+
+                            ),
+                            height: 180,
+                            child:
+                            Center(child: Text( '${feedbacks[index].k2ArabicLectureTitle}' ,style: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),),
+
+                          ),
                         ),
-                        ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xffFFE4A0FF),
-                                    side: BorderSide(
-                                        width: 0.2,
-                                        color: Colors.grey
+                        Positioned(
+                          top: 150,
+                          right: 110,
+                          child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xff7FC557),
+                                      side: BorderSide(
+                                          width: 0.2,
+                                          color: Colors.grey
+                                      ),
+                                      minimumSize: Size(100, 50),
+
                                     ),
-                                    minimumSize: Size(100, 50),
+                                    onPressed: (){
 
-                                  ),
-                                  onPressed: (){
-
-                                    Navigator.push(context,  MaterialPageRoute(builder: (context) => LectureResult(lectureResult: feedbacks[index].k2ArabicLectureLink,)));
-                                  }, child: Text('watch result',style: TextStyle(fontSize: 25))),
-                      ],
+                                      Navigator.push(context,  MaterialPageRoute(builder: (context) => LectureResult(lectureResult: feedbacks[index].k2ArabicLectureLink,)));
+                                    }, child: Text('watch result',style: TextStyle(fontSize: 25))),
+                        ),]
                     )
 
 
@@ -177,7 +190,7 @@ class _K2LectureReadingState extends State<K2LectureReading> {
                   SizedBox(
                     height: 50,
                     width: 50,
-                    child: Icon(Icons.menu,size: 30,color: Colors.grey,),
+                    child: Icon(Icons.notifications,size: 30,color: Colors.grey,),
                   )
                 ],
               ),
